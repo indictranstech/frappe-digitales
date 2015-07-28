@@ -95,7 +95,7 @@ def init(site, sites_path=None):
 
 	local.conf = _dict(get_site_config())
 	local.lang = local.conf.lang or "en"
-
+	
 	local.module_app = None
 	local.app_modules = None
 

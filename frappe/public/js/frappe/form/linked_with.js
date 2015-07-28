@@ -11,7 +11,6 @@ frappe.ui.form.LinkedWith = Class.extend({
 	show: function() {
 		if(!this.dialog)
 			this.make_dialog();
-		
 		this.dialog.show();
 	},
 	make_dialog: function() {

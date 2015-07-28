@@ -330,7 +330,7 @@ def money_in_words(number, main_currency = None, fraction_currency=None):
 
 	if not number or flt(number) < 0:
 		return ""
-
+	
 	d = get_defaults()
 	if not main_currency:
 		main_currency = d.get('currency', 'INR')
@@ -370,11 +370,7 @@ def in_words(integer, in_million=True):
 		import sys;
 		if n in known: return known[n]
 		bestguess, remainder = str(n), 0
-
 		if n<=20:
-			frappe.errprint(sys.stderr)
-			frappe.errprint(n)
-			frappe.errprint("How did this happen?")
 			assert 0
 		elif n < 100:
 			bestguess= xpsn((n//10)*10, known, xpsn) + '-' + xpsn(n%10, known, xpsn)

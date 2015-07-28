@@ -122,7 +122,7 @@ def get_linked_docs(doctype, name, metadata_loaded=None, no_metadata=False):
 				if link.get("child_doctype"):
 					ret = frappe.get_list(doctype=dt, fields=fields,
 						filters=[[link.get('child_doctype'), link.get("fieldname"), '=', name]])
-
+					
 				else:
 					ret = frappe.get_list(doctype=dt, fields=fields,
 						filters=[[dt, link.get("fieldname"), '=', name]])
