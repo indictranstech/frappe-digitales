@@ -57,6 +57,7 @@ def get_allowed_functions_for_jenv():
 			"get_doc": frappe.get_doc,
 			"db": {
 				"get_value": frappe.db.get_value,
+				"sql": frappe.db.sql,
 			},
 			"get_list": frappe.get_list,
 			"get_all": frappe.get_all,
