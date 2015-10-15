@@ -221,7 +221,7 @@ def rounded(num, precision=0):
 	decimal_part = num - floor
 
 	if decimal_part == 0.5:
-		num = floor if (floor % 2 == 0) else floor + 1
+		num = floor + 1 if (floor % 2 == 0) else floor + 1
 	else:
 		num = round(num)
 
