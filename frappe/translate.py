@@ -73,7 +73,7 @@ def get_user_lang(user=None):
 	return lang
 
 def set_default_language(language):
-	lang = get_lang_dict()[language]
+	lang = get_lang_dict()[language] or "en"
 	frappe.db.set_default("lang", lang)
 	frappe.local.lang = lang
 
@@ -90,7 +90,7 @@ def get_lang_info():
 def get_dict(fortype, name=None):
 	fortype = fortype.lower()
 	cache = frappe.cache()
-	cache_key = "translation_assets:" + frappe.local.lang
+	cache_key = "translation_assets:" + frappe.local.lang or "en"
 	asset_key = fortype + ":" + (name or "-")
 	translation_assets = cache.get_value(cache_key) or {}
 
