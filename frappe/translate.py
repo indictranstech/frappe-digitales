@@ -136,7 +136,7 @@ def get_lang_js(fortype, name):
 	return "\n\n$.extend(frappe._messages, %s)" % json.dumps(get_dict(fortype, name))
 
 def get_full_dict(lang):
-	if lang == "en":
+	if not lang or lang == "en":
 		return {}
 	return frappe.cache().get_value("lang:" + lang, lambda:load_lang(lang))
 
