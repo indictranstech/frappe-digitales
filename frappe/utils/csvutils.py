@@ -109,11 +109,8 @@ def check_record(d):
 	"""check for mandatory, select options, dates. these should ideally be in doclist"""
 	from frappe.utils.dateutils import parse_date
 	doc = frappe.get_doc(d)
-	#frappe.errprint(doc)
 	for key in d:
-		#frappe.errprint(key)
 		docfield = doc.meta.get_field(key)
-		#frappe.errprint(docfield)
 		val = d[key]
 		
 		if docfield:
@@ -125,8 +122,6 @@ def check_record(d):
 					pass
 
 				elif val not in docfield.options.split('\n'):
-					#frappe.errprint(val)
-					#frappe.errprint("in elif")
 					frappe.throw(_("{0} must be one of {1}").format(_(docfield.label), comma_or(docfield.options.split("\n"))))
 
 			if val and docfield.fieldtype=='Date':
