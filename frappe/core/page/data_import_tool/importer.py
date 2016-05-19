@@ -210,6 +210,14 @@ def upload(rows = None, submit_after_import=None, ignore_encoding_errors=False, 
 				else:
 					doc = frappe.get_doc(doc)
 					doc.ignore_links = ignore_links
+					if doc.doctype in ["Sales Order"]:
+						for item in doc.sales_order_details:
+							filters = {
+								"price_list": doc.selling_price_list,
+								"selling": 1,
+								"item_code": item.item_code
+							}
+							item.price_list_rate = frappe.db.get_value("Item Price", filters, "price_list_rate") or 0
 					doc.insert()
 					ret.append('Inserted row (#%d) %s' % (row_idx + 1, getlink(doc.doctype, doc.name)))
 				if submit_after_import:
