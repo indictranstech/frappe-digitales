@@ -221,11 +221,29 @@ def rounded(num, precision=0):
 	decimal_part = num - floor
 
 	if decimal_part == 0.5:
-		num = floor + 1 if (floor % 2 == 0) else floor + 1
+		num = floor if (floor % 2 == 0) else floor + 1
 	else:
 		num = round(num)
 
 	return (num / multiplier) if precision else num
+
+def c_rounded(num, precision=0):
+        """round method for round halfs to nearest even algorithm"""
+        precision = cint(precision)
+        multiplier = 10 ** precision
+
+        # avoid rounding errors
+        num = round(num * multiplier if precision else num, 8)
+
+        floor = math.floor(num)
+        decimal_part = num - floor
+
+        if decimal_part == 0.5:
+                num = floor + 1 if (floor % 2 == 0) else floor + 1
+        else:
+                num = round(num)
+
+        return (num / multiplier) if precision else num
 
 def encode(obj, encoding="utf-8"):
 	if isinstance(obj, list):

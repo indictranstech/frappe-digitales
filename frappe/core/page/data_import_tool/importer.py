@@ -192,7 +192,6 @@ def upload(rows = None, submit_after_import=None, ignore_encoding_errors=False, 
 		doc = None
 
 		doc = get_doc(row_idx)
-		#frappe.errprint(doc)
 		try:
 			frappe.local.message_log = []
 			if parentfield:
@@ -211,6 +210,14 @@ def upload(rows = None, submit_after_import=None, ignore_encoding_errors=False, 
 				else:
 					doc = frappe.get_doc(doc)
 					doc.ignore_links = ignore_links
+					if doc.doctype in ["Sales Order"]:
+						for item in doc.sales_order_details:
+							filters = {
+								"price_list": doc.selling_price_list or "Standard Selling",
+								"selling": 1,
+								"item_code": item.item_code
+							}
+							item.price_list_rate = frappe.db.get_value("Item Price", filters, "price_list_rate") or 0
 					doc.insert()
 					ret.append('Inserted row (#%d) %s' % (row_idx + 1, getlink(doc.doctype, doc.name)))
 				if submit_after_import:
@@ -254,3 +261,4 @@ def delete_child_rows(rows, doctype):
 	"""delete child rows for all parents"""
 	for p in list(set([r[1] for r in rows])):
 		frappe.db.sql("""delete from `tab%s` where parent=%s""" % (doctype, '%s'), p)
+
