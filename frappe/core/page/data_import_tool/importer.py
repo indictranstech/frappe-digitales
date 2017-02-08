@@ -213,7 +213,7 @@ def upload(rows = None, submit_after_import=None, ignore_encoding_errors=False, 
 					if doc.doctype in ["Sales Order"]:
 						for item in doc.sales_order_details:
 							filters = {
-								"price_list": doc.selling_price_list,
+								"price_list": doc.selling_price_list or "Standard Selling",
 								"selling": 1,
 								"item_code": item.item_code
 							}
@@ -261,3 +261,4 @@ def delete_child_rows(rows, doctype):
 	"""delete child rows for all parents"""
 	for p in list(set([r[1] for r in rows])):
 		frappe.db.sql("""delete from `tab%s` where parent=%s""" % (doctype, '%s'), p)
+
